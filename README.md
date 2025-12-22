@@ -129,3 +129,8 @@ fbdoom -iwad doom.wad -scaling 3 -bpp 16 # Render 320x200 * scaling
 
 The WePresent natively recognizes USB HID and so fbDOOM will pick them up immediately if plugged in. Did not try Gamepads/joysticks
 
+
+## Firmware dump
+
+https://github.com/dc336/FirmwareDumps/blob/main/WePresent_WIPG1600w.bin
+
