@@ -102,13 +102,16 @@ CPU revision    : 7
 Build fbDOOM (static, no SDL):
 
 ```bash
-$ sudo apt-get update
-$ sudo apt-get install gcc-arm-linux-gnueabi binutils-arm-linux-gnueabi
+sudo apt-get update
+sudo apt-get install -y git make gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf
 
-$ git clone https://github.com/maximevince/fbDOOM
-$ cd fbDOOM/fbdoom
-$ make clean
-$ make NOSDL=1 CROSS_COMPILE=arm-linux-musleabi- CFLAGS="-O2 -pipe -march=armv6 -mfpu=vfp -mfloat-abi=softfp" LDFLAGS="-static"
+git clone https://github.com/maximevince/fbDOOM
+cd fbDOOM/fbdoom
+make clean
+make NOSDL=1 \
+  CROSS_COMPILE=arm-linux-gnueabihf- \
+  CFLAGS="-O2 -pipe -march=armv6 -mfpu=vfp -mfloat-abi=hard" \
+  LDFLAGS=""
 ```
 
 ## Installation & Running
